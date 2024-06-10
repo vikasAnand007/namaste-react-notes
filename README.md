@@ -197,7 +197,7 @@ We will use parcel.
  - File watcher algorithm
  - Bundling
  - Minify
- - Cleaning code
+ - Cleaning code (do not remove console logs automatically, we need to configureit for that)
  - Dev and production build
  - Image optimisation
  - Caching while development
@@ -205,3 +205,85 @@ We will use parcel.
  - HTTPS on dev
  - Consistent hashing algorithm
  - Zero configuration
+ - tree shaking (removing unwanted code)
+
+## L006 -------------------------------------------------------
+## Key Prop 
+When we have multiple children (**with similar tree structure**) in a DOM tree hierarchy, Then we give a unique key to each child. This helps React to identify which child is needed to be re-rendered, Instead of re-rendering all the children. 
+***Whenever the value of key is changed, component consuming that key re-renders.***
+
+    import React from "react";
+    import ReactDOM from "react-dom/client";
+    
+    const heading1 = React.createElement(
+      "h1",
+      { key: "titleText1" },
+      "Hello World!"
+    );
+    const heading2 = React.createElement(
+      "h2",
+      { key: "titleText2" },
+      "Hello World!"
+    );
+    
+    const container = React.createElement("div", {}, [heading1, heading2]);
+    console.log(container);
+    
+    const rootElement = document.getElementById("root");
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(container);
+## L007 -----------------------------------------------------
+## JSX (Javascript syntex extention)
+
+ - It is a syntex in which we can write JavaScript and HTML like code in a combined format.
+ - It helps to make development easier and increases the readability.
+ - JSX is ultimately converted into `createElement(type,  props,  ...children)` with help of **babel**.
+ - 
+
+    import React from "react";
+    import ReactDOM from "react-dom/client";
+    
+    const container = (
+      <div>
+        <h1 key="titleText1">Hello World!</h1>
+        <h2 key="titleText2">Hello World!</h2>
+      </div>
+    );
+    console.log(container);
+    
+    const rootElement = document.getElementById("root");
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(container);
+### Babel
+Babel is a JavaScript compiler, that is used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript.
+
+## L008 --------------------------------------
+## React Component v/s React Element
+|Component| Element |
+|--|--|
+| A React Component is a piece of code that has the option to maintain it's state and can take props from its parent and it returns a React element or null | A React element is simply a piece of code that get rendered in the UI |
+| A Component has life cycle that can be mounting unmounting and updating | An element just mounts and unmounts |
+
+    import React from "react";
+    import ReactDOM from "react-dom/client";
+    
+    // REACT ELEMENT --
+    const header1 = <h1 key="titleText1">Hello World!</h1>;
+    
+    // REACT COMPONENT --
+    const Header2 = () => {
+      return <h2 key="titleText2">Hello World!</h2>;
+    };
+    
+    const container = (
+      <div>
+        {header1}
+        <Header2 />
+        {Header2()}
+      </div>
+    );
+    
+    const rootElement = document.getElementById("root");
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(container);
+
